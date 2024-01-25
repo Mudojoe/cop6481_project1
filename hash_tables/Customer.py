@@ -5,13 +5,3 @@ class Customer:
         self.email = email
         self.balance = balance
 
-    def update_balance(self, amount):
-        # Implement the logic to update the customer's balance here
-        pass
-
-    def get_customer_data(customer_id):
-        pass
-
-    def update_account_balance(customer_id):
-        pass
-

@@ -9,7 +9,7 @@ def process_commands(filename, hash_table):
             command = command.lower()
 
             if command == 'insert':
-                # Further split the data part for the 'insert' command
+                #  split the data part for the 'insert' command
                 customer_id, full_name, email_balance = data.split(', ', 2)
                 email, balance = email_balance.rsplit(', ', 1)
 

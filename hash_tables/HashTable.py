@@ -2,8 +2,7 @@ from sympy import nextprime
 class HashTable:
     def __init__(self, initial_capacity=11):
         # chose 11 as the initial capacity
-        # for this project is small enough for an initial capacity
-        # yet it gets us started with a prime number:
+        # gets us started with a prime number:
         #     The reason for using prime numbers is that
         #     they are not the product of smaller numbers,
         #     which helps in spreading out the keys more evenly.
@@ -17,8 +16,7 @@ class HashTable:
     def hash(self, key, capacity=None):
         if capacity is None:
             capacity = self.capacity
-
-        # Same double hashing logic as before, but using the provided capacity
+        #  double hashing logic
         primary_hash = hash(key)
         secondary_hash = 1 + primary_hash % (capacity - 1)
         return (primary_hash + secondary_hash) % capacity
@@ -58,28 +56,26 @@ class HashTable:
 
     def resize(self):
         self.expansions += 1
-        # Step 1: Calculate the new capacity
+        # Calculate the new capacity using next prime number
         new_capacity = nextprime(self.capacity * 2)
 
-        # Step 2: Create a new bucket array with the new capacity
+        # Create a new bucket array with the new capacity
         new_bucket_array = [[] for _ in range(new_capacity)]
 
-        # Step 3: Iterate through each bucket in the old bucket array
+        # Iterate through each bucket in the old bucket array
         for bucket in self.bucket_array:
-            # Step 4: Iterate through each key-value pair in each bucket
+            # iterate through each key-value pair in each bucket
             for key, value in bucket:
-                # Step 5: Compute the new hash code using the new capacity
+                # Compute the new hash code using the new capacity
                 new_hash_code = self.hash(key, new_capacity)
 
-                # Step 6: Append the key-value pair to the appropriate bucket in the new array
+                # Append the key-value pair to the appropriate bucket in the new array
                 new_bucket_array[new_hash_code].append((key, value))
 
-        # Step 7: Update the hash table's attributes to the new values
+        #  Update the hash table's attributes to the new values
         self.capacity = new_capacity
         self.bucket_array = new_bucket_array
-        # The size of the hash table remains unchanged
 
-        # ... (inside the HashTable class)
 
     def report(self):
         print("HashTable Report")
@@ -99,5 +95,5 @@ class HashTable:
 
         print("End of Report\n")
 
-        # ... (other parts of the HashTable class)
+
 
