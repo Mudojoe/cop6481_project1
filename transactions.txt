@@ -1,4 +1,11 @@
-insert, 23, Carter, James B, jamescarter@example.com, 250.00
+insert, 99, Carter, James B, jamescarter@example.com, 250.00
 update, 1, deposit, 50.00
 update, 2, withdrawal, 20.00
 find, 3
+insert, 199, Smith, John D, johnsmith@example.com, 300.00
+insert, 299, Johnson, Robert E, robertjohnson@example.com, 350.00
+update, 199, deposit, 100.00
+update, 299, withdrawal, 50.00
+find, 199
+find, 299
+insert, 50, Williams, David F, davidwilliams@example.com, 400.00
