@@ -13,16 +13,20 @@ def process_commands(filename, hash_table):
     with open(filename, "r") as file:
         for line in file:
             # Split the line into command and data parts
+            print("\nProcessing batch record: {}".format(line.strip()))
             command, data = line.strip().split(", ", 1)
             command = command.lower()
 
             if command == "insert":
+                print("Adding new account (Insert)")
                 process_insert_command(data, hash_table)
 
             elif command == "update":
+                print("Processing 'update' command")
                 process_update_command(data, hash_table)
 
             elif command == "find":
+                print("Processing command to find the account")
                 process_find_command(data, hash_table)
 
 
@@ -34,13 +38,14 @@ def process_insert_command(data, hash_table):
         data (str): The data for the insert command, formatted as "customer_id, full_name, email, balance".
         hash_table (HashTable): The hash table to insert the new customer into.
     """
-    customer_id, full_name, email_balance = data.split(", ", 2)
-    email, balance = email_balance.rsplit(", ", 1)
-
+    parts = data.strip().split(", ")
+    customer_id = parts[0]
+    email = parts [-2]
+    balance = parts[-1]
+    full_name = ", ".join(parts[1:-2])
+    print(f"New customer name : {full_name}, account number {customer_id}")
     customer = Customer(int(customer_id), full_name, email, float(balance))
     hash_table.insert(int(customer_id), customer)
-    print(f"Inserted: {customer.full_name}")
-
 
 def process_update_command(data, hash_table):
     """
@@ -51,12 +56,17 @@ def process_update_command(data, hash_table):
         hash_table (HashTable): The hash table to update the customer in.
     """
     customer_id, operation, amount = data.split(", ", 2)
+
     customer = hash_table.search(int(customer_id))
     if customer:
+        #print(f"previous balance={customer.balance}, update amount = {amount}")
+        print(f"previous balance=${customer.balance:.2f}, update amount = ${float(amount):.2f}")
         if operation.lower() == "deposit":
             customer.balance += float(amount)
+            print(f"This is a deposit")
         elif operation.lower() == "withdrawal":
             customer.balance -= float(amount)
+            print(f"This is a withdrawal")
         formatted_balance = "${:.2f}".format(customer.balance)
         print(f"Updated: {customer.full_name}, New Balance: {formatted_balance}")
 
@@ -73,9 +83,8 @@ def process_find_command(data, hash_table):
     customer = hash_table.search(int(customer_id))
     if customer:
         formatted_balance = "${:.2f}".format(customer.balance)
-        print(
-            f"Found: Customer ID: {customer_id}, Full Name: {customer.full_name}, Email: {customer.email}, Balance: {formatted_balance}"
-        )
+        print(f"Found:\n    Customer ID : {customer_id}\n    Full Name: {customer.full_name}")
+        print(f"    Email: {customer.email}\n    Current Balance: {formatted_balance}")
     else:
         print(f"Customer ID: {customer_id} not found")
 

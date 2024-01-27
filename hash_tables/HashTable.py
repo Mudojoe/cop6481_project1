@@ -67,10 +67,11 @@ class HashTable:
                 item[1] = value  # Update the value if key already exists
                 return
         if len(bucket) > 0:
-            print(f"Collision occurred for key {key}. Resolving using chaining.")
+            print(f"==>Collision occurred for key {key}. Resolved using chaining: append to end of bucket.")
         bucket.append((key, value))  # Use chaining to handle collisions
         self.size += 1
         if self.size > self.capacity * 0.7:
+            print(f"Capacity reached. Current size = {self.size}. Current capacity = {self.capacity}")
             self.resize()
 
     def search(self, key):
@@ -116,7 +117,7 @@ class HashTable:
         self.expansions += 1
         # Calculate the new capacity using next prime number
         new_capacity = nextprime(self.capacity * 2)
-
+        print(f"Resizing hash table to {new_capacity}")
         # Create a new bucket array with the new capacity
         new_bucket_array = [[] for _ in range(new_capacity)]
 
@@ -138,12 +139,12 @@ class HashTable:
         """
         Prints a report of the hash table's statistics and key-value pairs.
         """
-        print("HashTable Report")
-        print("Total records:", self.size)
-        print("Table Capacity:", self.capacity)
-        print("Load Factor:", "{:.2f}".format(self.size / self.capacity))
-        print("Total Expansions:", self.expansions)  # Print the number of expansions
-        print("Records Detail:")
+        print("HashTable Stats:")
+        print("   Total records:", self.size)
+        print("   Table Capacity:", self.capacity)
+        print("   Load Factor:", "{:.2f}".format(self.size / self.capacity))
+        print("   Total Expansions:", self.expansions)  # Print the number of expansions
+        print("Hash-Table/Account-Records Details:")
 
         for index, bucket in enumerate(self.bucket_array):
             for entry in bucket:
@@ -154,4 +155,4 @@ class HashTable:
                     f"   Bucket {index}: Customer ID: {customer_id}, Full Name: {customer.full_name}, Email: {customer.email}, Balance: {formatted_balance}"
                 )
 
-        print("End of Report\n")
+        print("End of Report of hash table contents and stats\n")
