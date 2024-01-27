@@ -1,5 +1,26 @@
 from sympy import nextprime
+
+
 class HashTable:
+    """
+    A class representing a hash table data structure.
+
+    Attributes:
+    - bucket_array (list): A list of buckets to store key-value pairs.
+    - capacity (int): The current capacity of the hash table.
+    - size (int): The number of key-value pairs stored in the hash table.
+    - expansions (int): The number of times the hash table has been expanded.
+
+    Methods:
+    - __init__(self, initial_capacity=11): Initializes a new instance of the HashTable class.
+    - hash(self, key, capacity=None): Computes the hash code for a given key.
+    - insert(self, key, value): Inserts a key-value pair into the hash table.
+    - search(self, key): Searches for a value in the hash table using the key.
+    - delete(self, key): Deletes a key-value pair from the hash table using the key.
+    - resize(self): Resizes the hash table to accommodate more key-value pairs.
+    - report(self): Prints a report of the hash table's statistics and key-value pairs.
+    """
+
     def __init__(self, initial_capacity=11):
         # chose 11 as the initial capacity
         # gets us started with a prime number:
@@ -14,6 +35,16 @@ class HashTable:
         self.expansions = 0
 
     def hash(self, key, capacity=None):
+        """
+        Computes the hash code for a given key.
+
+        Args:
+        - key: The key to compute the hash code for.
+        - capacity: The capacity of the hash table (optional).
+
+        Returns:
+        - The hash code for the given key.
+        """
         if capacity is None:
             capacity = self.capacity
         #  double hashing logic
@@ -22,20 +53,36 @@ class HashTable:
         return (primary_hash + secondary_hash) % capacity
 
     def insert(self, key, value):
-        # Insert a value into the hash table using the key
+        """
+        Inserts a key-value pair into the hash table.
+
+        Args:
+        - key: The key of the key-value pair.
+        - value: The value of the key-value pair.
+        """
         hash_code = self.hash(key)
         bucket = self.bucket_array[hash_code]
         for item in bucket:
             if item[0] == key:
                 item[1] = value  # Update the value if key already exists
                 return
+        if len(bucket) > 0:
+            print(f"Collision occurred for key {key}. Resolving using chaining.")
         bucket.append((key, value))  # Use chaining to handle collisions
         self.size += 1
         if self.size > self.capacity * 0.7:
             self.resize()
 
     def search(self, key):
-        # Search for a value in the hash table using the key
+        """
+        Searches for a value in the hash table using the key.
+
+        Args:
+        - key: The key to search for.
+
+        Returns:
+        - The value associated with the key if found, None otherwise.
+        """
         hash_code = self.hash(key)
         bucket = self.bucket_array[hash_code]
         for item in bucket:
@@ -44,7 +91,15 @@ class HashTable:
         return None  # Not found
 
     def delete(self, key):
-        # Delete a value from the hash table using the key
+        """
+        Deletes a key-value pair from the hash table using the key.
+
+        Args:
+        - key: The key of the key-value pair to delete.
+
+        Returns:
+        - The value of the deleted key-value pair if found, None otherwise.
+        """
         hash_code = self.hash(key)
         bucket = self.bucket_array[hash_code]
         for index, item in enumerate(bucket):
@@ -55,6 +110,9 @@ class HashTable:
         return None  # Not found
 
     def resize(self):
+        """
+        Resizes the hash table to accommodate more key-value pairs.
+        """
         self.expansions += 1
         # Calculate the new capacity using next prime number
         new_capacity = nextprime(self.capacity * 2)
@@ -76,8 +134,10 @@ class HashTable:
         self.capacity = new_capacity
         self.bucket_array = new_bucket_array
 
-
     def report(self):
+        """
+        Prints a report of the hash table's statistics and key-value pairs.
+        """
         print("HashTable Report")
         print("Total records:", self.size)
         print("Table Capacity:", self.capacity)
@@ -91,9 +151,7 @@ class HashTable:
                 # Combine bucket index and customer information on the same line
                 formatted_balance = "${:.2f}".format(customer.balance)
                 print(
-                    f"   Bucket {index}: Customer ID: {customer_id}, Full Name: {customer.full_name}, Email: {customer.email}, Balance: {formatted_balance}")
+                    f"   Bucket {index}: Customer ID: {customer_id}, Full Name: {customer.full_name}, Email: {customer.email}, Balance: {formatted_balance}"
+                )
 
         print("End of Report\n")
-
-
-
