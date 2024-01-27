@@ -10,15 +10,18 @@ Project Structure
 
 main.py
 hash_tables
->>>Customer
->>>HashTables
->>>ProcessCommands
+    Customer
+    HashTables
+    ProcessCommands
 
-to run, run main.py
+to run:
+    run main.py
 
-the Customer file contains the data model for the customer records
-the  HashTables file contains the implementation of the hash_table, the resize,
+The Customer file contains the data model for the customer records.
+
+The  HashTables file contains the implementation of the hash_table, the resize,
     and a reporting function.
-the ProcessCommands file contains the code to load the hash_table with the
+
+The ProcessCommands file contains the code to load the hash_table with the
     initial accounts and a function to process batch commands after the accounts
     have been loaded. The batch commands include deposit and withdrawal transactions
