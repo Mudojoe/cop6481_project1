@@ -8,7 +8,7 @@ def main():
     accounts_file_name = "accountLoad.txt"
     print(f"****Loading initial accounts from file '{accounts_file_name}'****")
     hash_table = load_accounts(accounts_file_name)
-    print("****Initial accounts load comolete.****")
+    print("****Initial accounts load complete.****")
     print("****Dump of hash table and stats after initial load.****")
     hash_table.report()
     batch_transactions_file  = "transactions.txt"
