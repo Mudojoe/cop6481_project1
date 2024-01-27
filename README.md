@@ -9,10 +9,15 @@ Your team has been tasked with implementing a customer data management system us
 Project Structure
 
 main.py
+
 hash_tables
+
     Customer
+
     HashTables
+
     ProcessCommands
+    
 
 to run:
     run main.py
